@@ -12,5 +12,5 @@
  
  Giulia Patané giulia.patane@mail.polimi.it
  
- Theomarc Saulus theomarc.saulus@mail.polimi.it
+ Théo Saulus theomarc.saulus@mail.polimi.it
 
