@@ -13,7 +13,8 @@ adj = data.matrix(adj)
 
 #Read the shape_matrix from the input csv file (shape.csv)
 shape <- read.csv("shape.csv", header=FALSE)
-shape = data.matrix(shape)
+shape <- as.matrix(shape)
+rownames(shape) <- colnames(shape)<-NULL
 
 #Call rgwish
 sprintf("[R] rgwish will now be sampling %s samples. The b (degrees of freedom) is set to %s", n,b)
@@ -23,5 +24,4 @@ output <- round( sample, 2 )
 
 #Write the result in the output file (gwish.csv)
 write.table(output, file = "gwish.csv", sep = ",", row.names = FALSE, col.names = FALSE)
-
 print("[R] rgwish succesfully executed!")
