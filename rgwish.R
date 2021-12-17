@@ -11,13 +11,13 @@ n = parser[2]
 adj <- read.csv("adj.csv", header=FALSE)
 adj = data.matrix(adj)
 
-#Read the shape_atrix from the input csv file (shape.csv)
+#Read the shape_matrix from the input csv file (shape.csv)
 shape <- read.csv("shape.csv", header=FALSE)
 shape = data.matrix(shape)
 
 #Call rgwish
 sprintf("[R] rgwish will now be sampling %s samples. The b (degrees of freedom) is set to %s", n,b)
-sample <- rgwish( n = n, adj = adj, b = NULL, D = NULL )
+sample <- rgwish( n = n, adj = adj, b = b, D = shape )
 #Round to two decimals
 output <- round( sample, 2 )
 
