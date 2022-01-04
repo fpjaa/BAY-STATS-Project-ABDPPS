@@ -3,9 +3,9 @@ library(BDgraph)
 
 #Read the b that is parsed as an argument from Python
 parser = commandArgs(trailingOnly=TRUE)
-b = parser[1]
+b = as.integer(parser[1])
 #Read the n (number of samples required) that is parsed from Python
-n = parser[2]
+n = as.integer(parser[2])
 #Read the if debugging lines should be printed
 debugOn = parser[3]
 
@@ -21,7 +21,7 @@ rownames(shape) <- colnames(shape)<-NULL
 
 #Call rgwish
 if (debugOn){
-    sprintf("[R] rgwish will now be sampling %s samples. The b (degrees of freedom) is set to %s", n,b)
+    sprintf("[R] rgwish will now be sampling %d samples. The b (degrees of freedom) is set to %d", n, b)
 }
 sample <- rgwish( n = n, adj = adj, b = b, D = shape )
 #Round to two decimals
