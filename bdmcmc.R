@@ -53,7 +53,7 @@ sample.bdmcmc <- bdgraph( K, n = NULL, method = "ggm", algorithm = "bdmcmc", ite
 G = summary(sample.bdmcmc)$p_links
 #G = summary(sample.bdmcmc)['p_links']
 K = summary(sample.bdmcmc)$K_hat$
-#G = summary(sample.bdmcmc)['K_hat']
+#K = summary(sample.bdmcmc)['K_hat']
 #HOW CAN WE KEEP THE ENTIRE BDGRAPH OBJECT FROM ONE ITERATION TO THE OTHER
 
 # Check https://github.com/TeoGiane/FGM/blob/master/R/sampler.R
