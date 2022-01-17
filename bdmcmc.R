@@ -49,7 +49,7 @@ if (debugOn){
 # INPUTS: b, n, G, K, Data, p_existing_link and shape_matrix (if you need something else let me know - K)
 #########################################
 # Actual algorithm
-sample.bdmcmc <- bdgraph( K, n = NULL, method = "ggm", algorithm = "bdmcmc", iter = 1, burnin = 0, not.cont = NULL, g.prior = p_existing_link, df.prior = b, g.start = "empty", jump = 1, save = TRUE, print = 1000, cores = "all", threshold = 1e-8 )
+sample.bdmcmc <- bdgraph( Data, n = NULL, method = "ggm", algorithm = "bdmcmc", iter = 1, burnin = 0, not.cont = NULL, g.prior = p_existing_link, df.prior = b, g.start = G, jump = 1, save = TRUE, print = 1000, cores = "all", threshold = 1e-8 )
 G = summary(sample.bdmcmc)$p_links
 #G = summary(sample.bdmcmc)['p_links']
 K = summary(sample.bdmcmc)$K_hat
