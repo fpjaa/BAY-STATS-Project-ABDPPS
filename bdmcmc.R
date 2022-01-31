@@ -26,6 +26,10 @@ shape_matrix = diag(dim(G)[1])  # Identity matrix of size k
 
 # Prior on existing link
 p_existing_link = 0.5  # uninformative prior
+#p_existing_link = 0.2  # uninformative prior
+
+# Number of iterations
+iterations = 2
 
 if (debugOn){
     sprintf("[R] BDMCMC will now be sampling a single iteration.")
@@ -38,15 +42,17 @@ if (debugOn){
     print(Data)
     print("[R] Shape Matrix:")
     print(shape_matrix)
+    print("[R] Iterations:")
+    print(iterations)
 }
 
 # INPUTS: b, n, G, K, Data, p_existing_link and shape_matrix (if you need something else let me know - K)
 #########################################
 # Actual algorithm
-sample.bdmcmc <- bdgraph(Data, n = n, method = "ggm", algorithm = "bdmcmc", iter = 1, burnin = 0, not.cont = NULL, g.prior = p_existing_link, df.prior = b, g.start = G, jump = 1, save = TRUE, print = 1000, cores = "all", threshold = 1e-8 )
+sample.bdmcmc <- bdgraph(Data, n = n, method = "ggm", algorithm = "bdmcmc", iter = iterations, burnin = 0, not.cont = NULL, g.prior = p_existing_link, df.prior = b, g.start = G, jump = 1, save = TRUE, print = 1000, cores = "all", threshold = 1e-8 )
 G = summary(sample.bdmcmc)$selected_g
 K = sample.bdmcmc$K_hat
-waitingTime = summary(sample.bdmcmc)$graph_weights[[0]]
+waitingTime <- sample.bdmcmc$graph_weights[iterations]
 #HOW CAN WE KEEP THE ENTIRE BDGRAPH OBJECT FROM ONE ITERATION TO THE OTHER
 
 # Check https://github.com/TeoGiane/FGM/blob/master/R/sampler.R
@@ -56,7 +62,6 @@ waitingTime = summary(sample.bdmcmc)$graph_weights[[0]]
 #########################################
 # OUTPUTS: G, K and waiting time (waitingTime)
 
-waitingTime = 0.45  # REMOVE THIS LINE!
 
 # Finally
 if (debugOn){
