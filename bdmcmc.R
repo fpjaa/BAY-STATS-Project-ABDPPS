@@ -50,8 +50,10 @@ if (debugOn){
 #########################################
 # Actual algorithm
 sample.bdmcmc <- bdgraph(Data, n = n, method = "ggm", algorithm = "bdmcmc", iter = iterations, burnin = 0, not.cont = NULL, g.prior = p_existing_link, df.prior = b, g.start = G, jump = 1, save = TRUE, print = 1000, cores = "all", threshold = 1e-8 )
-G = summary(sample.bdmcmc)$selected_g
-K = sample.bdmcmc$K_hat
+#G = summary(sample.bdmcmc)$selected_g
+#K = sample.bdmcmc$K_hat
+G = sample.bdmcmc$last_graph
+K = sample.bdmcmc$last_K
 waitingTime <- sample.bdmcmc$graph_weights[iterations]
 #HOW CAN WE KEEP THE ENTIRE BDGRAPH OBJECT FROM ONE ITERATION TO THE OTHER
 
