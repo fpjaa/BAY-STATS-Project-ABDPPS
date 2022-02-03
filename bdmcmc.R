@@ -77,7 +77,7 @@ if (debugOn){
 }
 # Printing results (to be deserialized by python) 
 # (cat does not print newline)
-cat(waitingTime)
+cat(formatC(waitingTime, digits = 16, format = "f"))
 cat('\n')  # Newline
 G_vectorized = as.vector(t(G))
 for (entry in G_vectorized) {
@@ -88,6 +88,6 @@ cat('\n')  # Newline
 
 K_vectorized = as.vector(t(K))
 for (entry in K_vectorized) {
-    cat(entry)
+    cat(formatC(entry, digits = 32, format = "f"))
     cat(' ')
 }
