@@ -118,7 +118,7 @@ def MC_sample_H(E, Sigma, H_current=None, burn_in=0, seed=None):
         E_d = E[d]
         
         for it in range(burn_in+1):
-            current_eta = H_current[d]        
+            
             
             # Sampling proposed eta from multivariate normal (q "proposal density")
             #proposed_eta = np.random.multivariate_normal(mean, Sigma) 
@@ -142,7 +142,7 @@ def MC_sample_H(E, Sigma, H_current=None, burn_in=0, seed=None):
             if np.log(np.random.uniform(0.0, 1.0)) < alpha:
                 current_eta = proposed_eta
 
-            H_sampled[d] = current_eta
+        H_sampled[d] = current_eta
     
     return H_sampled
 
