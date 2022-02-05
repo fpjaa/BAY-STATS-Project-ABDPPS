@@ -18,6 +18,8 @@ def MC_sample_Z(Z, W, Theta, B, E, C, debug=False):  # D, k are global variables
         for v in range(V):
             I_di = int(W[d, v])
             for j in range(I_di):
+                
+                #We are in the instance of a word
                 z_hat = int(Z[d, v, j])
                 
                 if z_hat != -1:  # Bug fix: Took invalid topics and assigned them
@@ -112,30 +114,29 @@ def MC_sample_H(E, Sigma, K, H_current=None, step_size=0.125, adaptive_step_rati
     
     for d in range(D):  # Iterating over each document
         
-        E_d = E[d]        
+        E_d = E[d]
+        
         current_eta = H_current[d]
         
-        for it in range(burn_in+1):                      
+        #Other option:           
+        proposed_eta = np.random.multivariate_normal(current_eta, Cov)
 
-            #Other option:           
-            proposed_eta = np.random.multivariate_normal(mean, Cov)
+        #Logarithm of the kernel numerator
+        lkn_proposed_eta = log_kernel_numerator(proposed_eta, K, E_d)
+        lkn_current_eta = log_kernel_numerator(current_eta, K, E_d)
 
-            #Logarithm of the kernel numerator
-            lkn_proposed_eta = log_kernel_numerator(proposed_eta, K, E_d)
-            lkn_current_eta = log_kernel_numerator(current_eta, K, E_d)
-            
-            #Logarithm of the kernel denominator
-            lkd_proposed_eta = k * np.log(sum_eta(proposed_eta))
-            lkd_current_eta = k * np.log(sum_eta(current_eta))
+        #Logarithm of the kernel denominator
+        lkd_proposed_eta = k * np.log(sum_eta(proposed_eta))
+        lkd_current_eta = k * np.log(sum_eta(current_eta))
 
-            #Logarithm of the proportion
-            log_p_proportion = (lkn_proposed_eta + lkd_current_eta) - (lkd_proposed_eta + lkn_current_eta)
+        #Logarithm of the proportion
+        log_p_proportion = (lkn_proposed_eta + lkd_current_eta) - (lkd_proposed_eta + lkn_current_eta)
 
-            alpha = min(0, log_p_proportion)
+        alpha = min(0, log_p_proportion)
 
-            if np.log(np.random.uniform(0.0, 1.0)) < alpha:
-                acceptance_counter += 1
-                current_eta = proposed_eta
+        if np.log(np.random.uniform(0.0, 1.0)) < alpha:
+            acceptance_counter += 1
+            current_eta = proposed_eta
 
         H_current[d] = current_eta
     
