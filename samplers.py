@@ -23,18 +23,20 @@ def MC_sample_Z(Z, W, Theta, B, E, C, debug=False):  # D, k are global variables
                 z_hat = int(Z[d, v, j])
                 
                 if z_hat != -1:  # Bug fix: Took invalid topics and assigned them
-                
+                    
+                    # Number of times the document sample a word from the topic z_hat
                     E[d, z_hat] = max(0, E[d, z_hat]-1)
 
+                    #Number of times the same word is sampled from the topic z_hat
                     C[z_hat, v] = max(0, C[z_hat, v]-1)
 
                     Rho = []  # Needs to start from zero to have the interval to fall into topic 1
                     Rho_z = 0
                     #Rho.append(Rho_z)
 
-                    for z in range(k):
-                        # Compute the denominator sum
-                        C_vk = 0
+                    for z in range(k):  #for each topic we compute the probability that a word v in doc d comes from k
+                        # Compute the denominator sum 
+                        C_vk = 0 #= number of times the topic k draws a word different from v
                         for b in range(V):
                             if b != v:
                                 C_vk += C[z, b]

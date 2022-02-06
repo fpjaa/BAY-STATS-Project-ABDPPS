@@ -108,3 +108,18 @@ class Simulator:
         self.update_E()  # Will get E from Z
         self.update_C()  # Will get C from Z
         pass
+    
+    def generate_non_informative(self):
+        V=self.V
+        k=self.k
+        D=self.D
+        self.B=(1/V)*np.ones((k,V))
+        self.K=np.identity(k)
+        self.Sigma=np.identity(k)
+        self.update_G()
+        self.H=(1/k)*np.ones((D,k)) # Will get H, Theta from Sigma
+        self.update_Theta()
+        self.generate_WZ()  # Will get W, Z from Theta, B
+        self.update_E()  # Will get E from Z
+        self.update_C() 
+        self

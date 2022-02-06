@@ -16,7 +16,7 @@ def sample_B(k, V, seed):
     b = np.empty((k,V))
     np.random.seed(seed)
     for i in range(k):
-        b[i,:] = build_topic_distribution(V, seed)  # TODO: Change
+        b[i,:] = build_topic_distribution(V,(seed+i))  # TODO: Change
     return b
 
 def sample_K(k, gamma, seed):  # Won't update Sigma automatically anymore
