@@ -7,7 +7,7 @@ import numpy as np
 # import scipy
 
 from transformation_functions import update_Sigma, update_G, update_Theta, update_E, update_C
-from generator_functions import sample_B, sample_K, sample_H
+from generator_functions import sample_B, sample_K, sample_H, sample_Z_from_W
 
 
 # Main Simulator Class
@@ -68,18 +68,7 @@ class Simulator:
                     self.Z[d, w, first_empty_index] = z  # Assinging word to topic
                     self.W[d, w] += 1  # Increasing word counter
         
-        print('Success: W and Z generated')
-
-    def generate_Z(self):
-        M=int(np.max(self.W))
-        D,V=self.W.shape
-        k=self.k
-        self.Z = -np.ones((D,V,M))
-        for d in range(D):
-            for v in range(V):
-                for j in range(int(self.W[d,v])):
-                    self.Z[d,v,j]=np.random.choice(k, 1)            
-            
+        print('Success: W and Z generated')            
     
     # Transformations
     def update_Theta(self):
@@ -131,7 +120,7 @@ class Simulator:
         self.update_G()
         self.H=(1/k)*np.ones((D,k)) # H non informative
         self.update_Theta()  #Theta non informative
-        self.generate_Z()  # Will get W, Z from Theta, B
+        self.sample_Z_from_W(self.W, self.k, self.seed)  # Will get W, Z from Theta, B
         self.update_E()  # Will get E from Z
         self.update_C() 
         pass
