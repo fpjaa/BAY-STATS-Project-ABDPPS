@@ -69,6 +69,17 @@ class Simulator:
                     self.W[d, w] += 1  # Increasing word counter
         
         print('Success: W and Z generated')
+
+    def generate_Z(self):
+        M=int(np.max(self.W))
+        D,V=self.W.shape
+        k=self.k
+        self.Z = -np.ones((D,V,M))
+        for d in range(D):
+            for v in range(V):
+                for j in range(int(self.W[d,v])):
+                    self.Z[d,v,j]=np.random.choice(k, 1)            
+            
     
     # Transformations
     def update_Theta(self):
@@ -109,7 +120,8 @@ class Simulator:
         self.update_C()  # Will get C from Z
         pass
     
-    def generate_non_informative(self):
+    def generate_non_informative(self,W):
+        self.W=W
         V=self.V
         k=self.k
         D=self.D
@@ -117,9 +129,9 @@ class Simulator:
         self.K=np.identity(k)
         self.Sigma=np.identity(k)
         self.update_G()
-        self.H=(1/k)*np.ones((D,k)) # Will get H, Theta from Sigma
-        self.update_Theta()
-        self.generate_WZ()  # Will get W, Z from Theta, B
+        self.H=(1/k)*np.ones((D,k)) # H non informative
+        self.update_Theta()  #Theta non informative
+        self.generate_Z()  # Will get W, Z from Theta, B
         self.update_E()  # Will get E from Z
         self.update_C() 
-        self
+        pass
