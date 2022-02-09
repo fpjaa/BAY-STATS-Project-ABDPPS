@@ -39,6 +39,6 @@ def sample_Z_from_W(W, k, seed):
     np.random.seed(seed)
     for d in range(D):
         for w in range(V): 
-            occurrences = W[d, w]
+            occurrences = int(W[d, w])
             Z[d, w, 0:occurrences] = np.random.randint(0, k, size=occurrences)    
     return Z

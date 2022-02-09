@@ -120,7 +120,7 @@ class Simulator:
         self.update_G()
         self.H=(1/k)*np.ones((D,k)) # H non informative
         self.update_Theta()  #Theta non informative
-        self.sample_Z_from_W(self.W, self.k, self.seed)  # Will get W, Z from Theta, B
+        self.Z = sample_Z_from_W(self.W, self.k, self.seed)  # Will get W, Z from Theta, B
         self.update_E()  # Will get E from Z
         self.update_C() 
         pass
