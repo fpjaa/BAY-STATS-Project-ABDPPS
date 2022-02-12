@@ -23,5 +23,5 @@ def graph_loss(G_true,G_sampled,permutation):
         p=int(permutation[i])
         G_perm[i]=G_sampled[p]
         G_perm[:,i]=G_sampled[:,p]
-    return np.sum(np.not_equal(G_true,G_perm))
+    return np.not_equal(G_true,G_perm).sum()
 
