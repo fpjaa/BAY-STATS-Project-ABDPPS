@@ -19,9 +19,16 @@ def permutation_topics(B_true, B_sampled):
 
 def graph_loss(G_true,G_sampled,permutation):
     G_perm=G_sampled.copy()
-    for i in range(len(permutation)):
+    print("BEFORE FOR")
+    for i in range(int(len(G_true[0]))):
         p=int(permutation[i])
         G_perm[i]=G_sampled[p]
+        print("G_PERM")
+        print(type(G_perm))
         G_perm[:,i]=G_sampled[:,p]
-    return np.not_equal(G_true,G_perm).sum()
+        print("G_SAMPLED")
+        print(type(G_sampled))
+        print("NEW RETURN")
+        print(abs(G_true-G_perm).sum())
+    return abs(G_true-G_perm).sum()
 
