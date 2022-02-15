@@ -21,3 +21,4 @@ __pycache__/
 2022-02-09_1107_sampled_Gs.pkl
 2022-02-09_1107_waiting_times.pkl
 2022-02-09_1107_Zerrors.pkl
+*.pkl
